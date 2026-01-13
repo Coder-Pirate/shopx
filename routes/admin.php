@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //admin.login, admin.register, admin.password.request, etc.
 //admin/login, admin/register, admin/forgot-password, etc.
 
-Route::middleware('guest')->prefix('admin')->as('admin.')->group(function () {
+Route::middleware('guest:admin')->prefix('admin')->as('admin.')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -39,7 +39,7 @@ Route::middleware('guest')->prefix('admin')->as('admin.')->group(function () {
         ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:admin')->prefix('admin')->as('admin.')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
